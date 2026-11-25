@@ -22,8 +22,12 @@
 
 Rust `1.88.0` 的 `cargo metadata --locked` 解析成功，共 242 个包；已声明的最低 Rust 版本均不高于 `1.88.0`。
 
+## URL 与 Cookie 依赖
+
+将 `url` 锁定到 `2.5.9`，修复来源解析的递归栈溢出，同步采用其要求的 `form_urlencoded 1.2.3`。将 `cookie` 锁定到 `0.18.3`，纳入私有 Cookie 的修复。[RustSec 的 url 公告](https://rustsec.org/advisories/RUSTSEC-2026-0592.html) · [RustSec 的 cookie 公告](https://rustsec.org/advisories/RUSTSEC-2026-0594.html)
+
 ## 发布与应用接入
 
-本锁文件及构建配置对应 [`precompiled_3aea817bfb329ec326ef4561451cab83`](https://github.com/Venera-Works/Venera-Native-Prebuilts/releases/tag/precompiled_3aea817bfb329ec326ef4561451cab83)。五个平台任务负责 12 个目标的编译和签名，发布任务检查 13 份二进制、13 份签名及 2 份许可证齐全后公开 Release。
+本锁文件及构建配置对应 [`precompiled_a75ea2c9d25abac35a14b40d2261964a`](https://github.com/Venera-Works/Venera-rhttp/releases/tag/precompiled_a75ea2c9d25abac35a14b40d2261964a)。五个平台任务负责 12 个目标的编译和签名，发布任务检查 13 份二进制、13 份签名及 2 份许可证齐全后公开 Release。
 
 发布完成并核验摘要和 Ed25519 签名后，将 `Cargo.toml`、`Cargo.lock`、`lock.json` 和 `cargokit.yaml` 同步到应用的 `native/prebuilts/rhttp/`。应用准备脚本计算出的 hash 必须与本 Release 一致。各平台构建结果见 [原生预编译工作流](https://github.com/Venera-Works/Venera-Native-Prebuilts/actions/workflows/prebuild-rhttp.yml)，消费端按对应平台验证取消回调及 HTTP/3。
